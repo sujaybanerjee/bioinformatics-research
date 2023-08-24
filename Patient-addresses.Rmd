@@ -1,0 +1,38 @@
+---
+title: "Geodata"
+author: "Sujay Banerjee"
+date: "2022-10-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(ggmap)
+library(tmaptools)
+library(RCurl)
+library(jsonlite)
+library(tidyverse)
+library(leaflet)
+addressData <- read.csv("/Users/suj/Downloads/geocoded_addresses (1).csv")
+
+```
+
+```{r}
+register_google(key = "AIzaSyAq99By61nnwACL7fKHEN3nTxQ2jVB4rNw")
+```
+
+```{r include=FALSE}
+addresses_df <- data.frame(Addresses = addressData$geocode_col, stringsAsFactors = FALSE)
+
+addresses_ggmap <- geocode(location = addressData$geocode_col, output = "more", source = "google")
+addresses_ggmap <- cbind(addresses_df, addresses_ggmap)
+
+
+```
+
+```{r}
+View(addresses_ggmap)
+```
+
